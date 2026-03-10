@@ -1,0 +1,35 @@
+# 1. THE DEPLOYMENT (Manages the Pods)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+        - name: spring-boot-app
+          image: prasad5657/my-spring-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+# 2. THE SERVICE (Exposes the App to your Browser)
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+spec:
+  type: NodePort
+  selector:
+    app: spring-boot-app
+  ports:
+    - protocol: TCP
+      port: 8081      # Port you want to use
+      targetPort: 8080 # Port the app uses inside the container
