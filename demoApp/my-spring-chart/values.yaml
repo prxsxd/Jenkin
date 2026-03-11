@@ -1,0 +1,13 @@
+appName: spring-boot-app
+serviceName: spring-boot-service
+replicaCount: 3
+
+image:
+  repository: prasad5657/my-spring-app
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 8081
+  targetPort: 8080
